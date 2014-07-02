@@ -1,6 +1,6 @@
 ;Classic Fortress Server Installer Script
 
-Name "Classic Fortress"
+Name "Classic Fortress Server"
 OutFile "Binaries\cfortsv.exe"
 InstallDir "C:\cfortsv"
 
