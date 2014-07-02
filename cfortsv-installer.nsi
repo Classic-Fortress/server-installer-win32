@@ -61,7 +61,7 @@ ShowInstDetails "nevershow"
 Page custom ERRORS
 
 !define MUI_PAGE_CUSTOMFUNCTION_SHOW "FinishShow"
-!define MUI_FINISHPAGE_RUN "$INSTDIR\cfortsv.exe"
+!define MUI_FINISHPAGE_RUN "$INSTDIR\mvdsv.exe"
 !define MUI_FINISHPAGE_NOREBOOTSUPPORT
 !insertmacro MUI_PAGE_FINISH
 
