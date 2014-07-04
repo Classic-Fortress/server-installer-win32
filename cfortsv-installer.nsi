@@ -426,14 +426,6 @@ Function .installConfigs
   StrCpy $0 "qw\server.cfg"
   inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qw/server.cfg" "$INSTDIR\$0" /END
   !insertmacro unix2dos $0
-  StrCpy $0 "qtv\qtv.cfg"
-  inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qtv/qtv.cfg" "$INSTDIR\$0" /END
-  !insertmacro unix2dos $0
-  StrCpy $0 "qtv\config.cfg"
-  ${Unless} ${FileExists} "$INSTDIR\$0"
-    inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qtv/config.cfg" "$INSTDIR\$0" /END
-    !insertmacro unix2dos $0
-  ${EndUnless}
   StrCpy $0 "qwfwd\qwfwd.cfg"
   inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qwfwd/qwfwd.cfg" "$INSTDIR\$0" /END
   !insertmacro unix2dos $0
