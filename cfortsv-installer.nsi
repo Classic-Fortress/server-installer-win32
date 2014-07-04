@@ -416,8 +416,10 @@ Function .installConfigs
   inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/fortress/fortress.cfg" "$INSTDIR\$0" /END
   !insertmacro unix2dos $0
   StrCpy $0 "fortress\config.cfg"
-  inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/fortress/config.cfg" "$INSTDIR\$0" /END
-  !insertmacro unix2dos $0
+  ${Unless} ${FileExists} "$INSTDIR\$0"
+    inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/fortress/config.cfg" "$INSTDIR\$0" /END
+    !insertmacro unix2dos $0
+  ${EndUnless}
   StrCpy $0 "qw\mvdsv.cfg"
   inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qw/mvdsv.cfg" "$INSTDIR\$0" /END
   !insertmacro unix2dos $0
@@ -428,14 +430,18 @@ Function .installConfigs
   inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qtv/qtv.cfg" "$INSTDIR\$0" /END
   !insertmacro unix2dos $0
   StrCpy $0 "qtv\config.cfg"
-  inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qtv/config.cfg" "$INSTDIR\$0" /END
-  !insertmacro unix2dos $0
+  ${Unless} ${FileExists} "$INSTDIR\$0"
+    inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qtv/config.cfg" "$INSTDIR\$0" /END
+    !insertmacro unix2dos $0
+  ${EndUnless}
   StrCpy $0 "qwfwd\qwfwd.cfg"
   inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qwfwd/qwfwd.cfg" "$INSTDIR\$0" /END
   !insertmacro unix2dos $0
   StrCpy $0 "qwfwd\config.cfg"
-  inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qwfwd/config.cfg" "$INSTDIR\$0" /END
-  !insertmacro unix2dos $0
+  ${Unless} ${FileExists} "$INSTDIR\$0"
+    inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qwfwd/config.cfg" "$INSTDIR\$0" /END
+    !insertmacro unix2dos $0
+  ${EndUnless}
 FunctionEnd
 
 Function .installDistfile
