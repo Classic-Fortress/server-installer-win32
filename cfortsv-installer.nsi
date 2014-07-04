@@ -413,6 +413,9 @@ FunctionEnd
 
 Function .installConfigs
   StrCpy $0 "fortress\fortress.cfg"
+  ${If} ${FileExists} "$INSTDIR\$0"
+    Delete "$INSTDIR\$0"
+  ${EndIf}
   inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/fortress/fortress.cfg" "$INSTDIR\$0" /END
   !insertmacro unix2dos $0
   StrCpy $0 "fortress\config.cfg"
@@ -421,12 +424,21 @@ Function .installConfigs
     !insertmacro unix2dos $0
   ${EndUnless}
   StrCpy $0 "qw\mvdsv.cfg"
+  ${If} ${FileExists} "$INSTDIR\$0"
+    Delete "$INSTDIR\$0"
+  ${EndIf}
   inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qw/mvdsv.cfg" "$INSTDIR\$0" /END
   !insertmacro unix2dos $0
   StrCpy $0 "qw\server.cfg"
+  ${If} ${FileExists} "$INSTDIR\$0"
+    Delete "$INSTDIR\$0"
+  ${EndIf}
   inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qw/server.cfg" "$INSTDIR\$0" /END
   !insertmacro unix2dos $0
   StrCpy $0 "qwfwd\qwfwd.cfg"
+  ${If} ${FileExists} "$INSTDIR\$0"
+    Delete "$INSTDIR\$0"
+  ${EndIf}
   inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qwfwd/qwfwd.cfg" "$INSTDIR\$0" /END
   !insertmacro unix2dos $0
   StrCpy $0 "qwfwd\config.cfg"
