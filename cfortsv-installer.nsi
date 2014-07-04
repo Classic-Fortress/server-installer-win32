@@ -61,7 +61,9 @@ ShowInstDetails "nevershow"
 Page custom ERRORS
 
 !define MUI_PAGE_CUSTOMFUNCTION_SHOW "FinishShow"
-!define MUI_FINISHPAGE_RUN "$INSTDIR\mvdsv.exe"
+!define MUI_FINISHPAGE_RUN "$WinDir\write.exe"
+!define MUI_FINISHPAGE_RUN_PARAMETERS "$INSTDIR\fortress\config.cfg"
+!define MUI_FINISHPAGE_RUN_TEXT "Edit server configuration"
 !define MUI_FINISHPAGE_NOREBOOTSUPPORT
 !insertmacro MUI_PAGE_FINISH
 
@@ -203,7 +205,6 @@ Section "Classic Fortress" CFORT
   Delete "$INSTDIR\start_servers.sh"
   Delete "$INSTDIR\stop_servers.sh"
   Rename "$INSTDIR\id1\README" "$INSTDIR\id1\readme.txt"
-  RMDir /r "$INSTDIR\run"
   RealProgress::SetProgress /NOUNLOAD $0
 
   # Download and install non-GPL files
@@ -412,15 +413,21 @@ FunctionEnd
 
 Function .installConfigs
   StrCpy $0 "fortress\fortress.cfg"
-  inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading Team Fortress config, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/fortress/fortress.cfg" "$INSTDIR\$0" /END
+  inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/fortress/fortress.cfg" "$INSTDIR\$0" /END
+  StrCpy $0 "fortress\config.cfg"
+  inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/fortress/config.cfg" "$INSTDIR\$0" /END
   StrCpy $0 "qw\mvdsv.cfg"
-  inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading mvdsv config, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qw/mvdsv.cfg" "$INSTDIR\$0" /END
+  inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qw/mvdsv.cfg" "$INSTDIR\$0" /END
   StrCpy $0 "qw\server.cfg"
-  inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading server config, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qw/server.cfg" "$INSTDIR\$0" /END
+  inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qw/server.cfg" "$INSTDIR\$0" /END
   StrCpy $0 "qtv\qtv.cfg"
-  inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading qtv config, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qtv/qtv.cfg" "$INSTDIR\$0" /END
+  inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qtv/qtv.cfg" "$INSTDIR\$0" /END
+  StrCpy $0 "qtv\config.cfg"
+  inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qtv/config.cfg" "$INSTDIR\$0" /END
   StrCpy $0 "qwfwd\qwfwd.cfg"
-  inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading qwfwd config, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qwfwd/qwfwd.cfg" "$INSTDIR\$0" /END
+  inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qwfwd/qwfwd.cfg" "$INSTDIR\$0" /END
+  StrCpy $0 "qwfwd\config.cfg"
+  inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qwfwd/config.cfg" "$INSTDIR\$0" /END
 FunctionEnd
 
 Function .installDistfile
