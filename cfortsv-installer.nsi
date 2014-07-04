@@ -61,7 +61,7 @@ ShowInstDetails "nevershow"
 Page custom ERRORS
 
 !define MUI_PAGE_CUSTOMFUNCTION_SHOW "FinishShow"
-!define MUI_FINISHPAGE_RUN "$WinDir\write.exe"
+!define MUI_FINISHPAGE_RUN "$WinDir\notepad.exe"
 !define MUI_FINISHPAGE_RUN_PARAMETERS "$INSTDIR\fortress\config.cfg"
 !define MUI_FINISHPAGE_RUN_TEXT "Edit server configuration"
 !define MUI_FINISHPAGE_NOREBOOTSUPPORT
