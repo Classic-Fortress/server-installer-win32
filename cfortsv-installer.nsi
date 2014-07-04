@@ -414,20 +414,28 @@ FunctionEnd
 Function .installConfigs
   StrCpy $0 "fortress\fortress.cfg"
   inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/fortress/fortress.cfg" "$INSTDIR\$0" /END
+  !insertmacro unix2dos $0
   StrCpy $0 "fortress\config.cfg"
   inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/fortress/config.cfg" "$INSTDIR\$0" /END
+  !insertmacro unix2dos $0
   StrCpy $0 "qw\mvdsv.cfg"
   inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qw/mvdsv.cfg" "$INSTDIR\$0" /END
+  !insertmacro unix2dos $0
   StrCpy $0 "qw\server.cfg"
   inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qw/server.cfg" "$INSTDIR\$0" /END
+  !insertmacro unix2dos $0
   StrCpy $0 "qtv\qtv.cfg"
   inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qtv/qtv.cfg" "$INSTDIR\$0" /END
+  !insertmacro unix2dos $0
   StrCpy $0 "qtv\config.cfg"
   inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qtv/config.cfg" "$INSTDIR\$0" /END
+  !insertmacro unix2dos $0
   StrCpy $0 "qwfwd\qwfwd.cfg"
   inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qwfwd/qwfwd.cfg" "$INSTDIR\$0" /END
+  !insertmacro unix2dos $0
   StrCpy $0 "qwfwd\config.cfg"
   inetc::get /NOUNLOAD /CAPTION "Downloading..." /BANNER "Downloading $0, please wait..." /TIMEOUT 5000 "https://raw.githubusercontent.com/Classic-Fortress/server-scripts/master/config/qwfwd/config.cfg" "$INSTDIR\$0" /END
+  !insertmacro unix2dos $0
 FunctionEnd
 
 Function .installDistfile
@@ -464,4 +472,61 @@ Function .installSection
   Pop $R1 # distfile info
   Pop $R0 # distfile filename
   Call .installDistfile
+FunctionEnd
+
+Function .unix2dos
+    ; strips all CRs
+    ; and then converts all LFs into CRLFs
+    ; (this is roughly equivalent to "cat file | dos2unix | unix2dos")
+    ;
+    ; usage:
+    ;    Push "infile"
+    ;    Push "outfile"
+    ;    Call unix2dos
+    ;
+    ; beware that this function destroys $0 $1 $2
+
+    ClearErrors
+
+    Pop $2
+    FileOpen $1 $2 w
+
+    Pop $2
+    FileOpen $0 $2 r
+
+    Push $2 ; save name for deleting
+
+    IfErrors unix2dos_done
+
+    ; $0 = file input (opened for reading)
+    ; $1 = file output (opened for writing)
+
+unix2dos_loop:
+    ; read a byte (stored in $2)
+    FileReadByte $0 $2
+    IfErrors unix2dos_done ; EOL
+    ; skip CR
+    StrCmp $2 13 unix2dos_loop
+    ; if LF write an extra CR
+    StrCmp $2 10 unix2dos_cr unix2dos_write
+
+unix2dos_cr:
+    FileWriteByte $1 13
+
+unix2dos_write:
+    ; write byte
+    FileWriteByte $1 $2
+    ; read next byte
+    Goto unix2dos_loop
+
+unix2dos_done:
+
+    ; close files
+    FileClose $0
+    FileClose $1
+
+    ; delete original
+    Pop $0
+    Delete $0
+
 FunctionEnd
