@@ -412,6 +412,10 @@ Function .abortInstallation
 FunctionEnd
 
 Function .installConfigs
+  CreateDirectory $INSTDIR\fortress
+  CreateDirectory $INSTDIR\qw
+  CreateDirectory $INSTDIR\qwfwd
+
   StrCpy $0 "fortress\fortress.cfg"
   ${If} ${FileExists} "$INSTDIR\$0"
     Delete "$INSTDIR\$0"
